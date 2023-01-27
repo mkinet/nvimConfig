@@ -71,13 +71,10 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap("n", "<leader>|", ":vsplit <CR>", opts)
 keymap("n", "<leader>-", ":split <CR>", opts)
 keymap("n", "<leader><Tab>", "gcc", term_opts)
-keymap("n", "<leader>c", "gcc", term_opts)
 keymap("v", "<leader><Tab>", "gc", term_opts)
-keymap("v", "<leader>c", "gc", term_opts)
 keymap("n","<leader>q","<cmd>Bdelete!<CR>",opts)
 keymap("n","<leader><Space>",":noh<CR>",opts)
 keymap("n","<leader>=","<cmd>wincmd =<CR>",opts)
--- keymap("n","<leader>p","<cmd>lua vim.lsp.buf.formatting_sync()<CR>",opts)
 
 
 -- folds

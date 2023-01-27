@@ -1,3 +1,21 @@
+local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
+
+local function jdtls_keymaps(bufnr)
+  local opts = { noremap = true, silent = true }
+  -- specific keymaps
+  --[[ nvim_buf_set_keymap(bufnr,"n", "<leader>di", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts) ]]
+  --[[ nvim_buf_set_keymap(bufnr,"n", "<leader>dt", "<Cmd>lua require'jdtls'.test_class()<CR>", opts) ]]
+  --[[ nvim_buf_set_keymap(bufnr,"n", "<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts) ]]
+  --[[ nvim_buf_set_keymap(bufnr,"v", "<leader>de", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts) ]]
+  --[[ nvim_buf_set_keymap(bufnr,"n", "<leader>de", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts) ]]
+  --[[ nvim_buf_set_keymap(bufnr,"v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts) ]]
+end
+
+local on_attach = function(client,bufnr)
+  -- default settings from lsp
+  require("user.lsp.handlers").on_attach(client,bufnr)
+  jdtls_keymaps(bufnr)
+end
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
   -- The command that starts the language server
@@ -54,6 +72,8 @@ local config = {
   init_options = {
     bundles = {},
   },
+
+  on_attach = on_attach,
 }
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.

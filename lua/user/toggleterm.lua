@@ -68,4 +68,4 @@ local python = Terminal:new({ cmd = "ipython", hidden = true })
 function _PYTHON_TOGGLE()
 	python:toggle()
 end
-vim.api.nvim_set_keymap("n", "<C-i>", "<cmd>lua _PYTHON_TOGGLE()<CR>", {noremap = true, silent = true})
+--[[ vim.api.nvim_set_keymap("n", "<C-i>", "<cmd>lua _PYTHON_TOGGLE()<CR>", {noremap = true, silent = true}) ]]
