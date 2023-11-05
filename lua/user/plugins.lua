@@ -47,21 +47,16 @@ return packer.startup(function(use)
   use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
   use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-  use("numToStr/Comment.nvim") -- Easily comment stuff
-  use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } })
-  use("akinsho/bufferline.nvim")
+  use("terrortylor/nvim-comment")
+  use({ "nvim-tree/nvim-tree.lua", requires = { "nvim-tree/nvim-web-devicons" } })
+  use({'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'})
   use("moll/vim-bbye")
   use("nvim-lualine/lualine.nvim")
   use("akinsho/toggleterm.nvim")
-  use("ahmedkhalf/project.nvim")
-  -- use "lewis6991/impatient.nvim"
-  -- use "lukas-reineke/indent-blankline.nvim"
-  -- use "goolord/alpha-nvim"
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
-  -- use "folke/which-key.nvim"
-
+  use( "folke/zen-mode.nvim")
   -- Colorschemes
-  use("luisiacc/gruvbox-baby")
+  use("sainnhe/sonokai")
 
   -- cmp plugins
   use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -81,6 +76,12 @@ return packer.startup(function(use)
   use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use("mfussenegger/nvim-jdtls")
+
+  -- DAP
+  use('mfussenegger/nvim-dap')
+  use('rcarriga/nvim-dap-ui')
+  use('mfussenegger/nvim-dap-python')
+  use('folke/neodev.nvim')
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")

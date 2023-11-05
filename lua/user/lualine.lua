@@ -36,7 +36,7 @@ local branch = {
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "gruvbox-baby",
+		theme = "sonokai",
 		always_divide_middle = true,
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },

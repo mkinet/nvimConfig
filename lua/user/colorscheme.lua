@@ -1,13 +1,5 @@
-vim.g.gruvbox_baby_function_style = "bold"
-vim.g.gruvbox_baby_keyword_style = "italic"
-vim.g.gruvbox_baby_background_color="dark"
-vim.g.gruvbox_baby_telescope_theme = 1
--- vim.g.gruvbox_baby_highlights = {Normal = {fg = "NONE", bg = "#050000", style="underline"}}
-vim.cmd [[
-try
-  colorscheme gruvbox-baby
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-  set background=dark
-endtry
-]]
+vim.g.sonokai_style = "espresso"
+vim.g.sonokai_disable_italic = 0
+vim.g.sonokai_colors_override = { bg1= "#050000", bg2= "#050000"}
+vim.g.sonokai_disable_terminal_colors = 1
+vim.cmd[[colorscheme sonokai]]

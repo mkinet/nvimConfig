@@ -9,15 +9,41 @@ vim.cmd [[
 local opts = { noremap = true, silent = true }
 local term_opts = { noremap = false, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>b", "oimport pdb; pdb.set_trace()<ESC>", opts)
+vim.api.nvim_set_keymap("n", "<leader>B", "Oimport pdb; pdb.set_trace()<ESC>", opts)
 
 vim.cmd [[
     let g:jupytext_fmt = 'py'
     let g:jupytext_style = 'hydrogen'
   ]]
 
+-- shortcut for jupyter
 vim.api.nvim_set_keymap("n", "<leader>n", "o<CR># %%<CR>", opts)
 
 local iron = require('iron.core')
+
+-- function get_ipython()
+--   poetry_path = vim.api.nvim_exec("!poetry env info --path", true)
+--   print(poetry_path)
+--   if(poetry_path ~= nil)
+--   then
+--     command = poetry_path .. "/bin/" .. require("iron.fts.python").ipython
+--   else
+--     command = require("iron.fts.python").ipython 
+--   end
+--   return command
+-- end
+--
+--
+-- iron.add_repl_definitions{
+--   python = {
+--     poetry_python = {
+--       -- Note that the command is a string and not a table.
+--       -- This allows neovims job to find the correct binary throught the path.
+--         command = get_ipython(),
+--     }
+--   }
+-- }
+-- iron.set_config{preferred = {python = "poetry_python"}}
 
 iron.setup{
   config = {
@@ -47,7 +73,7 @@ iron.setup{
 
     -- iron.view.curry will open a float window for the REPL.
     -- alternatively, pass a string of vimscript for opening a fixed window:
-    repl_open_cmd = 'belowright 15 split',
+    repl_open_cmd = 'belowright 30 split',
 
     -- If the repl buffer is listed
     buflisted = false,
@@ -64,4 +90,5 @@ iron.setup{
 }
 
 -- custom mapping to send a hydrogen defined jupyter cell to ipython
+vim.api.nvim_set_keymap("n", "<C-i>", ":IronRepl<CR>", term_opts)
 vim.api.nvim_set_keymap("n", "<leader>ij", "<leader>ixah]h", term_opts)

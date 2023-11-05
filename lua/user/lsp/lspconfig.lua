@@ -6,20 +6,12 @@ require("lspconfig")["pyright"].setup({
 require("lspconfig")["jsonls"].setup({
   on_attach = on_attach,
 })
-require("lspconfig")["sumneko_lua"].setup({
+require("lspconfig")["dockerls"].setup({
   on_attach = on_attach,
-  -- Server-specific settings...
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.stdpath("config") .. "/lua"] = true,
-        },
-      },
-    },
-  },
+})
+require("lspconfig")["sqlls"].setup({
+  on_attach = on_attach,
+})
+require("lspconfig")["groovyls"].setup({
+  on_attach = on_attach,
 })
