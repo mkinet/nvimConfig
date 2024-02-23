@@ -57,8 +57,6 @@ keymap("v", "p", '"_dP', opts)
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
 -- Better terminal navigation
@@ -69,11 +67,15 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Own keymaps until I understand what whichkey does
 keymap("n", "<leader>|", ":vsplit <CR>", opts)
+keymap("n", "<leader>\\", ":vsplit <CR>", opts)
 keymap("n", "<leader>-", ":split <CR>", opts)
 keymap("n", "<leader><Tab>", "gcc", term_opts)
 keymap("v", "<leader><Tab>", "gc", term_opts)
 keymap("n","<leader>q","<cmd>Bdelete!<CR>",opts)
 keymap("n","<leader><Space>",":noh<CR>",opts)
+keymap("n","<leader>wc","<C-w>c",opts)
+keymap("n","<leader>wl","<C-w>r",opts)
+keymap("n","<leader>wh","<C-w>l",opts)
 keymap("n","<leader>=","<cmd>wincmd =<CR>",opts)
 
 

@@ -51,12 +51,13 @@ return packer.startup(function(use)
   use({ "nvim-tree/nvim-tree.lua", requires = { "nvim-tree/nvim-web-devicons" } })
   use({'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'})
   use("moll/vim-bbye")
-  use("nvim-lualine/lualine.nvim")
+  use({"nvim-lualine/lualine.nvim", requires = { 'nvim-tree/nvim-web-devicons', opt = true }})
   use("akinsho/toggleterm.nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
   use( "folke/zen-mode.nvim")
   -- Colorschemes
   use("sainnhe/sonokai")
+  use({ 'rose-pine/neovim', as = 'rose-pine' })
 
   -- cmp plugins
   use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -79,7 +80,7 @@ return packer.startup(function(use)
 
   -- DAP
   use('mfussenegger/nvim-dap')
-  use('rcarriga/nvim-dap-ui')
+  use({'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'}})
   use('mfussenegger/nvim-dap-python')
   use('folke/neodev.nvim')
 

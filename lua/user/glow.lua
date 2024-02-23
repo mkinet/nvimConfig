@@ -5,9 +5,9 @@ end
 
 glow.setup({
   style = "dark",
-  width = 120,
+  width = 180,
 })
 
 
-local opts = {silent=true, noremap = true, }
+local opts = {noremap = true, }
 vim.api.nvim_buf_set_keymap(0, "n", "<leader>m", ":Glow <cr>",   opts)

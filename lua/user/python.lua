@@ -1,7 +1,7 @@
 
 -- Black formatting
 vim.cmd [[
-    autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync()
+    autocmd BufWritePre *.py lua vim.lsp.buf.format()
   ]]
 
 
