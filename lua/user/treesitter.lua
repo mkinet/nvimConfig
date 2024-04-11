@@ -21,6 +21,11 @@ configs.setup {
   --   enable_autocmd = false,
   -- },
 }
+local status_ok, install = pcall(require, "nvim-treesitter.install")
+if not status_ok then
+  return
+end
+install.prefer_git = true
  -- use use require('ts_context_commentstring').setup {} and set vim.g.skip_ts_context_commentstring_module = true to speed up loading instead.
 require('ts_context_commentstring').setup {} 
 vim.g.skip_ts_context_commentstring_module = true 
