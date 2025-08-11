@@ -1,0 +1,66 @@
+return {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", "archibate/lualine-time" },
+    config = function()
+        local lualine = require("lualine")
+
+        local hide_in_width = function()
+            return vim.fn.winwidth(0) > 80
+        end
+
+        local diagnostics = {
+            "diagnostics",
+            sources = { "nvim_diagnostic" },
+            symbols = { error = " ", warn = " ", info = " ", hint = " " },
+            sections = { "error", "warn", "info", "hint" },
+            colored = true,
+            update_in_insert = false,
+            always_visible = false,
+        }
+
+        local diff = {
+            "diff",
+            cond = hide_in_width,
+        }
+
+        local mode = {
+            "mode",
+            fmt = function(str)
+                return "   " .. str .. "   "
+            end,
+        }
+
+        local branch = {
+            "branch",
+            icons_enabled = true,
+            icon = "",
+        }
+        lualine.setup({
+            options = {
+                icons_enabled = true,
+                theme = "auto",
+                always_divide_middle = true,
+                component_separators = { left = "", right = "" },
+                section_separators = { left = "", right = "" },
+            },
+            sections = {
+                lualine_a = { mode, "filename" },
+                lualine_b = { branch, diff },
+                lualine_c = { diagnostics },
+                lualine_x = {},
+                lualine_y = { "filetype", "fileformat", "encoding" },
+                lualine_z = { "ctime" },
+            },
+            inactive_sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = { "filename" },
+                lualine_x = { "location" },
+                lualine_y = {},
+                lualine_z = {},
+            },
+            tabline = {},
+            extensions = {},
+        })
+    end,
+}

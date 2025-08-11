@@ -6,6 +6,11 @@ local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 --Remap comma as leader key
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 keymap("", "<,>", "<Nop>", opts)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -71,7 +76,7 @@ keymap("n", "<leader>\\", ":vsplit <CR>", opts)
 keymap("n", "<leader>-", ":split <CR>", opts)
 keymap("n", "<leader><Tab>", "gcc", term_opts)
 keymap("v", "<leader><Tab>", "gc", term_opts)
-keymap("n","<leader>q","<cmd>Bdelete!<CR>",opts)
+keymap("n","<leader>q","<cmd>bdelete!<CR>",opts)
 keymap("n","<leader><Space>",":noh<CR>",opts)
 keymap("n","<leader>wc","<C-w>c",opts)
 keymap("n","<leader>wl","<C-w>r",opts)
@@ -82,11 +87,3 @@ keymap("n","<leader>=","<cmd>wincmd =<CR>",opts)
 -- folds
 -- keymap("n", "<space>", "za", opts)
 -- keymap("v", "<space>", "za", opts)
--- Telescope commands
-keymap("n","<leader>ff",":Telescope find_files<cr>",opts)
-keymap("n","<leader>fg",":Telescope live_grep<cr>",opts)
--- TODO: this doesn't work well
--- keymap("n","<leader>fr","<cmd>lua require('telescope.builtin').find_files({cwd = '/Users/mkinet/', hidden=true, search_dirs={'.','./Documents','./Developer'}})<cr>",opts)
-
--- NvimTree
-keymap("n","<leader>e","<cmd>NvimTreeToggle<cr>",opts)
