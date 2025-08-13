@@ -1,5 +1,5 @@
 return {
-    "hkupty/iron.nvim",
+    "Vigemus/iron.nvim",
     dependencies = {
         "kana/vim-textobj-user",
         "kana/vim-textobj-line",

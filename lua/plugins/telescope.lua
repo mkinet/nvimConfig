@@ -44,9 +44,14 @@ return {
                 -- Default configuration for builtin pickers goes here:
                 find_files = {
                     cwd = get_wd(),
+                    no_ignore = true,
+                    hidden = true,
                 },
                 live_grep = {
                     cwd = get_wd(),
+                    additional_args = function(opts)
+                        return {"--no-ignore", "--hidden"}
+                    end,
                 }
                 -- Now the picker_config_key will be applied every time you call this
                 -- builtin picker
