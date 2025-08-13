@@ -70,9 +70,16 @@ keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
--- Terminal buffer navigation (same as normal mode)
-keymap("t", "<S-l>", "<C-\\><C-N>:bnext<CR>", term_opts)
-keymap("t", "<S-h>", "<C-\\><C-N>:bprevious<CR>", term_opts)
+-- Terminal buffer navigation - only in terminal normal mode
+-- Use autocmd to set these mappings only when entering terminal normal mode
+vim.api.nvim_create_autocmd("TermEnter", {
+  pattern = "*",
+  callback = function()
+    -- Set buffer-local keymaps that work only in normal mode within terminal buffers
+    vim.keymap.set("n", "<S-l>", ":bnext<CR>", { buffer = true, silent = true })
+    vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { buffer = true, silent = true })
+  end,
+})
 
 -- Own keymaps until I understand what whichkey does
 keymap("n", "<leader>|", ":vsplit <CR>", opts)
