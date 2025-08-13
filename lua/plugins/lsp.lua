@@ -30,7 +30,10 @@ return {
                 "lua_ls",
                 "ruff",
                 "pyright",
-                "jsonls"
+                "jsonls",
+                "bashls",
+                "marksman",
+                "yamlls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -92,20 +95,14 @@ return {
             })
         })
 
-        local signs = {
-            { name = "DiagnosticSignError", text = "" },
-            { name = "DiagnosticSignWarn", text = "" },
-            { name = "DiagnosticSignHint", text = "" },
-            { name = "DiagnosticSignInfo", text = "" },
-        }
-
-        for _, sign in ipairs(signs) do
-            vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-        end
         vim.diagnostic.config({
-            -- show signs
             signs = {
-                active = signs,
+                text = {
+                    [vim.diagnostic.severity.ERROR] = "",
+                    [vim.diagnostic.severity.WARN] = "",
+                    [vim.diagnostic.severity.HINT] = "",
+                    [vim.diagnostic.severity.INFO] = "",
+                },
             },
             -- update_in_insert = true,
             float = {

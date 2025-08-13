@@ -70,7 +70,12 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {},
+    bundles = vim.list_extend(
+      -- Java debug adapter
+      vim.split(vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"), "\n"),
+      -- Java test runner  
+      vim.split(vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-test/extension/server/*.jar"), "\n")
+    ),
   },
 
   on_attach = on_attach,

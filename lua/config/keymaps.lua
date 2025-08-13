@@ -11,9 +11,6 @@ local keymap = vim.api.nvim_set_keymap
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-keymap("", "<,>", "<Nop>", opts)
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
 
 -- Modes
 --   normal_mode = "n",
@@ -64,11 +61,18 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
+-- Easy escape from terminal mode
+keymap("t", "<Esc>", "<C-\\><C-N>", term_opts)
+
 -- Better terminal navigation
 keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- Terminal buffer navigation (same as normal mode)
+keymap("t", "<S-l>", "<C-\\><C-N>:bnext<CR>", term_opts)
+keymap("t", "<S-h>", "<C-\\><C-N>:bprevious<CR>", term_opts)
 
 -- Own keymaps until I understand what whichkey does
 keymap("n", "<leader>|", ":vsplit <CR>", opts)
