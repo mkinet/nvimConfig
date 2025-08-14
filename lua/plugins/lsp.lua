@@ -33,7 +33,8 @@ return {
                 "jsonls",
                 "bashls",
                 "marksman",
-                "yamlls"
+                "yamlls",
+                "ts_ls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)

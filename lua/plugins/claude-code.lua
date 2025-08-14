@@ -6,8 +6,10 @@ return {
       window = {
         position = "vertical",
       }
-    }
-    )
+    })
   end,
+  keys = {
+    { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
+  },
 }
 
