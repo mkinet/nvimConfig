@@ -63,6 +63,7 @@ return {
             "mfussenegger/nvim-dap",
         },
         ft = "python",
+        build = false, -- Disable luarocks build (known issue: nvim-dap-python rockspec expects nvim-dap via luarocks)
         config = function()
             -- Try to find python in virtual environment, fallback to system python
             local python_path = vim.fn.exepath("python3") or vim.fn.exepath("python")
