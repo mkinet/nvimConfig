@@ -6,7 +6,7 @@ return {
         "GCBallesteros/vim-textobj-hydrogen" },
     config = function()
         local iron = require("iron.core")
-        -- Black formatting
+        -- Black formatting on save
         vim.cmd [[
             autocmd BufWritePre *.py lua vim.lsp.buf.format()
         ]]

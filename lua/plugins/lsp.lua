@@ -1,9 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-        "mason-org/mason.nvim",
-        "mason-org/mason-lspconfig.nvim",
+        "antoinemadec/FixCursorHold.nvim",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -23,6 +23,19 @@ return {
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
 
+        -- Fix for Neovim 0.11.x changetracking with multiple LSP clients
+        -- Force UTF-16 encoding (Pyright's default) for consistency
+        capabilities.general = capabilities.general or {}
+        capabilities.general.positionEncodings = { 'utf-16' }
+
+        -- CRITICAL: Configure Ruff with --preview flag for Neovim 0.11+
+        vim.lsp.config('ruff', {
+            cmd = { 'ruff', 'server', '--preview' },
+            filetypes = { 'python' },
+            root_dir = vim.fs.root(0, { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' }),
+            single_file_support = true,
+        })
+
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -37,29 +50,30 @@ return {
                 "ts_ls"
             },
             handlers = {
-                function(server_name) -- default handler (optional)
+                -- Default handler for all servers
+                function(server_name)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
                 end,
-                zls = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+
+                -- Custom handlers for specific servers
+                ["pyright"] = function()
+                    require("lspconfig").pyright.setup {
+                        capabilities = capabilities,
                         settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
-                            },
-                        },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    diagnosticMode = "openFilesOnly",
+                                    useLibraryCodeForTypes = true,
+                                },
+                            }
+                        }
+                    }
                 end,
                 ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
+                    require("lspconfig").lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
@@ -74,12 +88,12 @@ return {
             }
         })
 
+        -- Completion setup
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    require('luasnip').lsp_expand(args.body)
                 end,
             },
             mapping = cmp.mapping.preset.insert({
@@ -90,22 +104,23 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
+                { name = 'luasnip' },
             }, {
                 { name = 'buffer' },
             })
         })
 
+        -- Diagnostic configuration
         vim.diagnostic.config({
             signs = {
                 text = {
                     [vim.diagnostic.severity.ERROR] = "",
                     [vim.diagnostic.severity.WARN] = "",
                     [vim.diagnostic.severity.HINT] = "",
+                    [vim.diagnostic.severity.HINT] = "",
                     [vim.diagnostic.severity.INFO] = "",
                 },
             },
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -115,6 +130,8 @@ return {
                 prefix = "",
             },
         })
+
+        -- LSP keymaps
         local opts = { noremap = true, silent = true }
         vim.api.nvim_set_keymap("n", "<leader>le", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
         vim.api.nvim_set_keymap("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)

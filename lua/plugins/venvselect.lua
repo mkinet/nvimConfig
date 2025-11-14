@@ -1,25 +1,17 @@
 return {
-  "linux-cultist/venv-selector.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-    "neovim/nvim-lspconfig",
-    -- "mfussenegger/nvim-dap",
-    -- "mfussenegger/nvim-dap-python", --optional
-  },
-  ft = "python",
-  opts = {
-    search = {
-      -- my_venvs = {
-      --   -- Quote the path and use regex that specifically looks for .venv directories
-      --   command = "fd 'bin/python$' $CWD --full-path --color never -HI -a -L",
-      -- },
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "neovim/nvim-lspconfig",
     },
-    options = {
-      debug = true,  -- Enable debug logging
-      notify_user_on_activate = true,
-    }
-  },
-  keys = {
-    { "<leader>v", "<cmd>VenvSelect<cr>" },
-  },
+    ft = "python",
+    opts = {
+        options = {
+            notify_user_on_activate = true,
+            enable_cached_venvs = false,  -- DISABLE auto-activation on startup!
+        }
+    },
+    keys = {
+        { "<leader>v", "<cmd>VenvSelect<cr>" },
+    },
 }
