@@ -1,13 +1,12 @@
 return {
     "folke/zen-mode.nvim",
-    init = function()
-        vim.keymap.set("n", "<leader>z", "<Cmd>ZenMode<CR>", { noremap = true, silent = true })
-    end,
+    keys = {
+        { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode" }
+    },
     opts = {
         window = {
             width = 1,
             options = {}
         },
     },
-    keys = { "<leader>z" }
 }
