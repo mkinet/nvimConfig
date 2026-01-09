@@ -15,6 +15,7 @@ return {
                 ensure_installed = {
                     "python",
                     "java-debug-adapter",
+                    "java-test",
                     "lua-debug-adapter",
                 },
                 automatic_installation = true,

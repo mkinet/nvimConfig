@@ -47,7 +47,8 @@ return {
                 "bashls",
                 "marksman",
                 "yamlls",
-                "ts_ls"
+                "ts_ls",
+                "jdtls",
             },
             handlers = {
                 -- Default handler for all servers
