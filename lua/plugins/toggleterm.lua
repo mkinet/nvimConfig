@@ -32,6 +32,9 @@ return {
             vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
             vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
             vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
+            -- Scroll keymaps (exit to normal, scroll, stay in normal for navigation)
+            vim.api.nvim_buf_set_keymap(0, "t", "<C-u>", [[<C-\><C-n><C-u>]], opts)  -- Half page up
+            vim.api.nvim_buf_set_keymap(0, "t", "<C-d>", [[<C-\><C-n><C-d>]], opts)  -- Half page down
         end
 
         vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
@@ -61,6 +64,27 @@ return {
         function _HTOP_TOGGLE()
             htop:toggle()
         end
+
+        local python = Terminal:new({
+            cmd = "python",
+            hidden = true,
+            direction = "vertical",
+            size = function() return vim.o.columns * 0.4 end,
+        })
+
+        function _PYTHON_TOGGLE()
+            python:toggle()
+        end
+
+        -- Keymap shortcuts for terminals
+        vim.keymap.set("n", "<leader>tg", function() _LAZYGIT_TOGGLE() end, { desc = "Lazygit" })
+        vim.keymap.set("n", "<leader>tp", function() _PYTHON_TOGGLE() end, { desc = "Python" })
+        vim.keymap.set("n", "<leader>tn", function() _NODE_TOGGLE() end, { desc = "Node" })
+        vim.keymap.set("n", "<leader>th", function() _HTOP_TOGGLE() end, { desc = "Htop" })
+
+        -- Numbered terminals for flexibility
+        vim.keymap.set("n", "<leader>t1", "<cmd>1ToggleTerm direction=vertical size=60<cr>", { desc = "Term 1 (vert)" })
+        vim.keymap.set("n", "<leader>t2", "<cmd>2ToggleTerm direction=horizontal<cr>", { desc = "Term 2 (horiz)" })
     end,
     keys = { "<C-\\>" }
 }

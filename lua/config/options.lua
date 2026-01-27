@@ -87,5 +87,14 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
+
+  augroup _terminal_settings
+    autocmd!
+    autocmd TermEnter * setlocal scrolloff=0
+    autocmd TermLeave * setlocal scrolloff=8
+  augroup end
 ]]
+
+-- Terminal-specific settings
+vim.opt.scrollback = 100000  -- Increase scrollback buffer (default is 10,000)
 
