@@ -1,6 +1,7 @@
 return {
     'akinsho/toggleterm.nvim',
     version = "*",
+    dependencies = { "mrjones2014/smart-splits.nvim" },
     config = function()
         require("toggleterm").setup({
             size = 40,
@@ -25,16 +26,29 @@ return {
             },
         })
         function _G.set_terminal_keymaps()
-            local opts = { noremap = true }
-            vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-            vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opts)
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
+            local opts = { noremap = true, buffer = 0 }
+            vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+            vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+            -- Navigation using smart-splits (enables Neovim <-> Ghostty pane navigation)
+            vim.keymap.set("t", "<C-h>", function()
+                vim.cmd([[stopinsert]])
+                require("smart-splits").move_cursor_left()
+            end, opts)
+            vim.keymap.set("t", "<C-j>", function()
+                vim.cmd([[stopinsert]])
+                require("smart-splits").move_cursor_down()
+            end, opts)
+            vim.keymap.set("t", "<C-k>", function()
+                vim.cmd([[stopinsert]])
+                require("smart-splits").move_cursor_up()
+            end, opts)
+            vim.keymap.set("t", "<C-l>", function()
+                vim.cmd([[stopinsert]])
+                require("smart-splits").move_cursor_right()
+            end, opts)
             -- Scroll keymaps (exit to normal, scroll, stay in normal for navigation)
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-u>", [[<C-\><C-n><C-u>]], opts)  -- Half page up
-            vim.api.nvim_buf_set_keymap(0, "t", "<C-d>", [[<C-\><C-n><C-d>]], opts)  -- Half page down
+            vim.keymap.set("t", "<C-u>", [[<C-\><C-n><C-u>]], opts)  -- Half page up
+            vim.keymap.set("t", "<C-d>", [[<C-\><C-n><C-d>]], opts)  -- Half page down
         end
 
         vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
